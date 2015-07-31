@@ -1,0 +1,26 @@
+{
+  "name": "metalsmith-rewrite",
+  "description": "Renames a glob of files using string patterns and file metadata.",
+  "repository": "git://github.com/segmentio/metalsmith-ignore.git",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "Evan Krambuhl <thekrambuhl@gmail.com> (http://stumptownbear.com)",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*.test.js"
+  },
+  "dependencies": {
+    "cheerio": "^0.19.0",
+    "debug": "^2.2.0",
+    "interpolate": "^0.1.0",
+    "lodash": "^3.10.0",
+    "minimatch": "^2.0.10",
+    "moment": "^2.10.6",
+    "multimatch": "^2.0.0",
+    "object-path-get": "0.0.2"
+  },
+  "devDependencies": {
+    "metalsmith": "^2.0.1",
+    "tape": "^4.0.1"
+  }
+}
