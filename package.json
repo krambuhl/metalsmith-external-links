@@ -1,6 +1,6 @@
 {
-  "name": "metalsmith-rewrite",
-  "description": "Renames a glob of files using string patterns and file metadata.",
+  "name": "metalsmith-external-links",
+  "description": "Processes HTML pages, marking external links.",
   "repository": "git://github.com/segmentio/metalsmith-ignore.git",
   "version": "0.1.0",
   "license": "MIT",
@@ -12,12 +12,8 @@
   "dependencies": {
     "cheerio": "^0.19.0",
     "debug": "^2.2.0",
-    "interpolate": "^0.1.0",
-    "lodash": "^3.10.0",
-    "minimatch": "^2.0.10",
-    "moment": "^2.10.6",
-    "multimatch": "^2.0.0",
-    "object-path-get": "0.0.2"
+    "extend": "^3.0.0",
+    "minimatch": "^2.0.10"
   },
   "devDependencies": {
     "metalsmith": "^2.0.1",

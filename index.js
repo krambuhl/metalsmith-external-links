@@ -1,8 +1,7 @@
 var debug = require('debug')('metalsmith-external-links');
-var path = require('path');
 var match = require('minimatch');
 var cheerio = require('cheerio');
-var _ = require('lodash');
+var extend = require('extend');
 
 
 /**
@@ -104,5 +103,5 @@ function normalize(opts) {
     throw Error('`domain` options is required');
   }
 
-  return _.extend({}, def, opts);
+  return extend({}, def, opts);
 }
