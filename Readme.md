@@ -46,6 +46,10 @@ String used to change element `target` attribute, leaves `target` unchanged if s
 
 Class added to element when it's external, will leave `class` unchanged if set to `undefined`.
 
+#### appendRel <Boolean>
+
+If `true`, will union the `rel` values to the existing element's `rel` values. Example: Avoid clobbering a social link with `rel="publisher noopener"` when `opts.rel` is `'noopener'`.
+
 ## License
 
 MIT

@@ -2,6 +2,7 @@ var debug = require('debug')('metalsmith-external-links');
 var match = require('minimatch');
 var cheerio = require('cheerio');
 var extend = require('extend');
+var _ = require('underscore');
 
 
 /**
@@ -45,7 +46,14 @@ function process(filename, data, opts) {
   });
 
   if (opts.overwrite && opts.rel !== undefined) {
-    links.attr('rel', opts.rel);
+    if (opts.appendRel) {
+      links.each(function() {
+        var link = $(this);
+        link.attr('rel', unionRel(link.attr('rel'), opts.rel));
+      });
+    } else {
+      links.attr('rel', opts.rel);
+    }
   }
 
   if (opts.overwrite && opts.target !== undefined) {
@@ -76,6 +84,17 @@ function isExternal(link, opts) {
   return true;
 }
 
+function unionRel(oldRel, newRel) {
+  var oldRels = (oldRel || '').split(' ');
+  var newRels = (newRel || '').split(' ');
+
+  var relUnion = _.union(oldRels, newRels).filter(function(rel) {
+    return rel;
+  }).join(' ');
+
+  return relUnion;
+}
+
 /**
  * Normalizes options arguments
  *
@@ -86,6 +105,8 @@ function isExternal(link, opts) {
  *   @property {String} rel
  *   @property {String} target
  *   @property {String} extClass
+ *   @property {Boolean} overwrite
+ *   @property {Boolean} appendRel
  * @return {Array} patterns
  */
 
@@ -96,7 +117,8 @@ function normalize(opts) {
     rel: 'external',
     target: '_blank',
     extClass: 'external',
-    overwrite: true
+    overwrite: true,
+    appendRel: false
   };
 
   if (opts.domain === undefined) {
