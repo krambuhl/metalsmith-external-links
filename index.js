@@ -1,7 +1,6 @@
-var debug = require('debug')('metalsmith-external-links');
-var match = require('minimatch');
-var cheerio = require('cheerio');
-var extend = require('extend');
+const debug = require('debug')('metalsmith-external-links');
+const match = require('minimatch');
+const cheerio = require('cheerio');
 
 
 /**
@@ -39,8 +38,8 @@ function plugin(options) {
 }
 
 function process(filename, data, opts) {
-  var $ = cheerio.load(data.contents.toString());
-  var links = $('a').filter(function() {
+  const $ = cheerio.load(data.contents.toString());
+  const links = $('a').filter(function() {
     return isExternal($(this), opts);
   });
 
@@ -56,18 +55,18 @@ function process(filename, data, opts) {
     links.addClass(opts.extClass);
   }
 
-  return new Buffer($.html());
+  return Buffer.from($.html(),'utf8');
 }
 
 function isExternal(link, opts) {
-  var href = link.attr('href');
-  var pat = 'http*://*' + opts.domain + '/**/*';
+  const href = link.attr('href');
+  const pat = 'http*://*' + opts.domain + '/**/*';
   
   if (href.indexOf('http') === -1 || match(href, pat)) {
     return false;
   }
 
-  for(var i = 0; i < opts.whitelist.length; i++) {
+  for(let i = 0; i < opts.whitelist.length; i++) {
     if (match(href, opts.whitelist[i])) {
       return false;
     }
@@ -89,8 +88,8 @@ function isExternal(link, opts) {
  * @return {Array} patterns
  */
 
-function normalize(opts) {
-  var def = {
+function normalize(options) {
+  const def = {
     domain: undefined,
     whitelist: [],
     rel: 'external',
@@ -99,9 +98,9 @@ function normalize(opts) {
     overwrite: true
   };
 
-  if (opts.domain === undefined) {
+  if (options.domain === undefined) {
     throw Error('`domain` options is required');
   }
 
-  return extend({}, def, opts);
+  return Object.assign({}, def, options);
 }
